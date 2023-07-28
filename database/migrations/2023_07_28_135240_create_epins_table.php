@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('pin');
             $table->string('status');
+            $table->string('user_id')->nullable();
             $table->timestamps();
         });
     }
