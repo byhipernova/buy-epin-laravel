@@ -3,7 +3,7 @@
 
 ## Installation
 
-Install and run with docker
+Install and run with docker first .env.example file rename to .env
 
 ```bash
 docker-compose up -d
@@ -18,6 +18,8 @@ go your browser http://localhost:8000/pin
 Install manually change .env file your database info
 
 ```bash
+composer install
+php artisan key:generate
 php artisan migrate
 php artisan db:seed --class=EpinSeeder
 php artisan serve
