@@ -14,7 +14,8 @@ class EpinController extends Controller
     function buyEpin()
     {
         try {
-            $userId = rand(999999, 999999999).time();
+            
+            $userId = uniqid();
             $update = Epin::where('status', 'unused')->limit(1)->update(['status' => 'in process', 'user_id' => $userId]);
 
             if ($update) {
@@ -22,13 +23,17 @@ class EpinController extends Controller
                 try {
 
                     if ($this->userCanBuyEpin()) {
+
                         Epin::where(['user_id' => $userId, 'status' => 'in process'])->update(['status' => 'used']);
                         return Epin::where(['user_id' => $userId, 'status' => 'used'])->orderBy('id', 'desc')->first();
+
                     } else {
+
                         Epin::where(['user_id' => $userId, 'status' => 'in process'])->update(['status' => 'unused', 'user_id' => null]);
                         return response()->json([
                             'message' => 'User can not buy epin',
                         ], 400);
+
                     }
 
                 } catch (QueryException $e) {
