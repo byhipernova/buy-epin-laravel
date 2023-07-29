@@ -1,12 +1,5 @@
 version: '3.8'
 services:
-    main:
-        container_name: Serve
-        build:
-            context: .
-            dockerfile: Dockerfile
-        ports:
-            - 8000:8000
     db:
         platform: linux/x86_64
         image: mysql:8.0
@@ -17,15 +10,16 @@ services:
             MYSQL_ROOT: "root"
             MYSQL_PASSWORD: "${DB_PASSWORD}"
             MYSQL_ROOT_PASSWORD: "${DB_PASSWORD}"
-        volumes:
-            - db:/var/lib/mysql
+        
+
+    main:
+        container_name: Serve
+        build:
+            context: .
+            dockerfile: Dockerfile
+        links:
+            - "db:db"
+        depends_on:
+            - db
         ports:
-            - 3306:3306
-
-networks:
-    laravel-exa:
-        driver: bridge
-
-volumes:
-    db:
-        driver: local
+            - "8000:8000"

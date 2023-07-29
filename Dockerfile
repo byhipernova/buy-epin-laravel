@@ -7,6 +7,6 @@ RUN apk add --update zlib-dev libpng-dev jpeg-dev freetype-dev libzip-dev;docker
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 COPY . .
-RUN composer install --optimize-autoloader --no-dev
+RUN composer install --optimize-autoloader;
 EXPOSE 8000
 CMD ["php", "artisan", "serve", "--host=0.0.0.0"]
