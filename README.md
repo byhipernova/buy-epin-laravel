@@ -15,7 +15,7 @@ go your browser http://localhost:8000/pin
 
 ## Installation
 
-Install manually change .env file your database info
+Install manually change .env.example file rename to .env and change database settings your database settings
 
 ```bash
 composer install
